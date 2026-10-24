@@ -1,0 +1,817 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Descubre Nicaragua</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Young+Serif&display=swap">
+<style>
+/* Layout: una sola columna de lectura, pensada para el celular. Un departamento por página, con chips de secciones fijos arriba y un botón de menú flotante. */
+:root {
+  --bg: #F2F5F3;
+  --surface: #FFFFFF;
+  --ink: #13303B;
+  --muted: #4F6A73;
+  --line: #D5E0DD;
+  --lake: #1E6A86;
+  --sun: #D99A1E;
+  --sun-ink: #3A2700;
+  --leaf: #2F6B4D;
+  --chip: #E3ECE9;
+  --font-display: "Young Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Albert Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1D23;
+    --surface: #15272F;
+    --ink: #E6F0EE;
+    --muted: #9DB5BB;
+    --line: #26404A;
+    --lake: #6DB8D4;
+    --sun: #F0B93F;
+    --sun-ink: #2A1C00;
+    --leaf: #7FC59D;
+    --chip: #1D343D;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1D23;
+  --surface: #15272F;
+  --ink: #E6F0EE;
+  --muted: #9DB5BB;
+  --line: #26404A;
+  --lake: #6DB8D4;
+  --sun: #F0B93F;
+  --sun-ink: #2A1C00;
+  --leaf: #7FC59D;
+  --chip: #1D343D;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  background: var(--bg);
+  z-index: 10;
+}
+.in {
+  max-width: 720px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--lake); text-underline-offset: 3px; }
+a:focus-visible, .btn:focus-visible, .chip:focus-visible, .close:focus-visible, .fab:focus-visible, summary:focus-visible, .share-input:focus-visible {
+  outline: 3px solid var(--sun);
+  outline-offset: 2px;
+}
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+/* Portada */
+.hero { padding-block: 40px 0; }
+.kicker {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lake);
+}
+.hero h1 { font-size: clamp(3.2rem, 15vw, 5.6rem); line-height: 1; margin-top: 8px; }
+.lede { margin-top: 12px; color: var(--muted); max-width: 52ch; }
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px 20px;
+  margin: 22px 0 0;
+  padding: 0;
+}
+.facts div { min-width: 0; }
+.facts dt {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.facts dd { margin: 2px 0 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.strip {
+  height: 8px;
+  margin-top: 26px;
+  background: linear-gradient(90deg, var(--sun) 0 20%, var(--lake) 20% 40%, var(--leaf) 40% 60%, var(--sun) 60% 80%, var(--lake) 80% 100%);
+}
+.model-note {
+  margin-top: 16px;
+  padding: 10px 12px;
+  background: var(--chip);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Portada con foto. El texto es siempre claro porque va sobre una capa oscura fija, en ambos temas. */
+.hero-photo {
+  background-color: #14313C;
+  background-image: linear-gradient(180deg, rgba(8, 20, 26, 0.2) 0%, rgba(8, 20, 26, 0.58) 40%, rgba(8, 20, 26, 0.9) 100%), url("fotos/managua-portada.jpg");
+  background-size: cover;
+  background-position: center 45%;
+  padding-block: 120px 18px;
+  color: #FFFFFF;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.5);
+}
+.hero-photo .kicker { color: #BFE6F5; }
+.hero-photo .lede { color: rgba(255, 255, 255, 0.92); }
+.hero-photo .facts dt { color: rgba(255, 255, 255, 0.8); }
+.hero-photo .model-note { text-shadow: none; }
+.hero-photo + .nav { margin-top: 0; }
+
+/* Navegación */
+.nav {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  margin-top: 20px;
+}
+.nav .in > div {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-block: 10px;
+  scrollbar-width: none;
+}
+.nav .in > div::-webkit-scrollbar { display: none; }
+.chip {
+  flex: 0 0 auto;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Secciones */
+.sec { padding-block: 32px 8px; scroll-margin-top: 64px; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin-bottom: 14px; }
+.sec h2 { font-size: 1.85rem; line-height: 1.15; }
+.tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sun-ink);
+  background: var(--sun);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.hint { color: var(--muted); font-size: 0.92rem; margin-bottom: 14px; }
+
+/* Fotos: espacios para las imágenes que se suban */
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 12px; margin: 0; padding: 0; }
+.gallery figure { margin: 0; min-width: 0; }
+.ph {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 4;
+  max-width: 100%;
+  border: 2px dashed var(--line);
+  border-radius: 8px;
+  background: var(--chip);
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 8px;
+}
+.photo { aspect-ratio: 3 / 4; max-width: 100%; border-radius: 8px; overflow: hidden; background: var(--chip); }
+.photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.map-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: auto;
+  padding: 6px 10px;
+  border: 1.5px solid var(--ink);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+}
+.gallery figure { display: flex; flex-direction: column; }
+.gallery figcaption { display: flex; flex-direction: column; flex: 1 1 auto; }
+.gallery figcaption .credit { margin-top: 2px; margin-bottom: 8px; font-size: 0.74rem; }
+.gallery figcaption { margin-top: 6px; font-size: 0.92rem; font-weight: 600; }
+.gallery figcaption small { display: block; font-weight: 400; color: var(--muted); font-size: 0.8rem; }
+
+/* Listas de lugares */
+.rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.row {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  min-width: 0;
+}
+.row-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.row h3 { font-size: 1.15rem; line-height: 1.25; }
+.row .meta { color: var(--muted); font-size: 0.9rem; margin-top: 2px; }
+.price { text-align: right; flex: 0 0 auto; font-weight: 700; font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+.price small { display: block; font-weight: 400; color: var(--muted); font-size: 0.78rem; }
+.row-link { display: inline-block; margin-top: 10px; font-size: 0.92rem; font-weight: 600; }
+.dishes { margin-top: 8px; font-size: 0.95rem; }
+.dishes b { font-weight: 700; }
+.asof { margin-top: 10px; color: var(--muted); font-size: 0.82rem; }
+
+/* Aviso */
+.notice {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--chip);
+  font-size: 0.92rem;
+}
+.notice .tag { align-self: flex-start; }
+
+/* Destinos de cada terminal */
+.dests { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 10px; }
+.dests li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.dests li > div:first-child { flex: 1 1 0; min-width: 0; }
+.dests li > .d-price { flex: 0 0 auto; min-width: auto; }
+.d-name { font-weight: 700; }
+.d-meta { color: var(--muted); font-size: 0.88rem; }
+.d-price { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.d-price small { display: block; font-weight: 400; color: var(--muted); font-size: 0.75rem; }
+
+.route-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 16px;
+  margin: 12px 0 0;
+}
+.route-facts div { min-width: 0; }
+.route-facts dt { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.route-facts dd { margin: 1px 0 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* Botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-sun { background: var(--sun); color: var(--sun-ink); border: 0; }
+.btn-line { background: var(--surface); color: var(--ink); border: 1.5px solid var(--ink); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.btn-row .btn { flex: 1 1 200px; }
+
+.socials { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.social {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 64px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+}
+.social b { font-family: var(--font-display); font-weight: 400; font-size: 1.2rem; }
+.social span { color: var(--muted); font-size: 0.88rem; }
+.social:hover { border-color: var(--lake); }
+
+.others { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.others li {
+  padding: 6px 12px;
+  border: 1px dashed var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Fuentes */
+.sources { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); }
+.sources summary { cursor: pointer; font-weight: 700; font-size: 0.95rem; }
+.sources ul { margin: 10px 0 0; padding-left: 1.1rem; display: grid; gap: 6px; font-size: 0.9rem; overflow-wrap: anywhere; }
+
+/* Menú flotante */
+.fab {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(8, 20, 26, 0.35);
+}
+.bars {
+  display: inline-block;
+  width: 18px;
+  height: 2px;
+  margin-right: 12px;
+  background: currentColor;
+  box-shadow: 0 -6px 0 currentColor, 0 6px 0 currentColor;
+}
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(8, 20, 26, 0.55);
+}
+.sheet-body {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  max-height: 88%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 16px 16px 0 0;
+  padding-top: 16px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sheet-head h2 { font-size: 1.5rem; }
+.close {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1.5px solid var(--ink);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.menu-label {
+  margin-top: 18px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.menu-list { display: grid; margin-top: 4px; }
+.menu-list a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Compartir */
+.share-box { display: flex; flex-wrap: wrap; gap: 10px; }
+.share-input {
+  flex: 1 1 220px;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+}
+.share-status { min-height: 1.4em; margin-top: 8px; color: var(--muted); font-size: 0.9rem; }
+
+footer { margin-top: 36px; padding-block: 20px 96px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.88rem; }
+</style>
+
+<button class="fab" id="menu-open" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu"><span class="bars" aria-hidden="true"></span>Menú</button>
+
+<div class="sheet" id="menu" hidden>
+  <div class="sheet-body" role="dialog" aria-modal="true" aria-labelledby="menu-title">
+    <div class="sheet-head">
+      <h2 id="menu-title">Menú</h2>
+      <button class="close" id="menu-close" type="button" aria-label="Cerrar menú">Cerrar</button>
+    </div>
+    <p class="menu-label">Managua</p>
+    <nav class="menu-list" aria-label="Secciones de Managua">
+      <a href="#fotos">Qué ver</a>
+      <a href="#dormir">Dónde dormir</a>
+      <a href="#comer">Dónde comer</a>
+      <a href="#bus">Cómo llegar en bus</a>
+      <a href="#carro">Cómo llegar en carro</a>
+    </nav>
+    <p class="menu-label">Más</p>
+    <nav class="menu-list" aria-label="Otras secciones">
+      <a href="#redes">Redes sociales</a>
+      <a href="#compartir">Compartir la página</a>
+      <a href="#otros">Otros departamentos</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero hero-photo">
+  <div class="in">
+    <p class="kicker">Descubre Nicaragua · Departamento de Managua</p>
+    <h1>Managua</h1>
+    <p class="lede">La capital, a orillas del lago Xolotlán. Aquí encuentras qué visitar, dónde dormir y comer, y cómo llegar en bus o en tu propio carro.</p>
+    <dl class="facts">
+      <div><dt>Capital de</dt><dd>Nicaragua</dd></div>
+      <div><dt>Aeropuerto</dt><dd>a 11 km del centro</dd></div>
+      <div><dt>Coordenadas</dt><dd>12°08′ N · 86°15′ O</dd></div>
+      <div><dt>Mejor época</dt><dd>noviembre a mayo</dd></div>
+      <div><dt>Clima</dt><dd>29 °C de media al año</dd></div>
+      <div><dt>Moneda</dt><dd>Córdoba (C$) y dólar</dd></div>
+    </dl>
+    <div class="strip" aria-hidden="true"></div>
+    <p class="model-note">Precios y horarios de referencia, tomados de fuentes públicas en octubre de 2026. Cambian con frecuencia: confirma antes de viajar.</p>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Secciones">
+  <div class="in">
+    <div>
+      <a class="chip" href="#fotos">Qué ver</a>
+      <a class="chip" href="#dormir">Dormir</a>
+      <a class="chip" href="#comer">Comer</a>
+      <a class="chip" href="#bus">En bus</a>
+      <a class="chip" href="#carro">En carro</a>
+      <a class="chip" href="#redes">Redes</a>
+      <a class="chip" href="#compartir">Compartir</a>
+    </div>
+  </div>
+</nav>
+
+<main class="in">
+
+  <section class="sec" id="fotos">
+    <div class="sec-head"><h2>Qué ver</h2></div>
+    <p class="hint">Los horarios y las entradas vienen de guías de viaje sin fecha reciente. Confírmalos antes de ir.</p>
+    <div class="gallery">
+      <figure>
+        <div class="photo"><img src="fotos/loma-tiscapa.jpg" alt="Estatua en silueta de Sandino sobre la Loma de Tiscapa, con banderas y la laguna al fondo" width="800" height="1067" loading="lazy"></div>
+        <figcaption>Loma de Tiscapa<small>Parque histórico con vista a la laguna y a la ciudad</small><small class="credit">Foto: @joszuniga52 en TikTok</small><a class="map-link" href="https://www.google.com/maps/dir/?api=1&destination=Loma+de+Tiscapa+Managua+Nicaragua" target="_blank" rel="noopener" aria-label="Cómo llegar a Loma de Tiscapa en Google Maps">Cómo llegar en Google Maps</a></figcaption>
+      </figure>
+      <figure>
+        <div class="photo"><img src="fotos/malecon.jpg" alt="Atardecer sobre el lago Xolotlán y rueda de la fortuna del parque de ferias en el Malecón" width="800" height="1067" loading="lazy"></div>
+        <figcaption>Malecón y Puerto Salvador Allende<small>Paseo junto al lago Xolotlán y paseos en barco</small><small class="credit">Foto: @nicanature en TikTok</small><a class="map-link" href="https://www.google.com/maps/dir/?api=1&destination=Puerto+Salvador+Allende+Managua+Nicaragua" target="_blank" rel="noopener" aria-label="Cómo llegar a Malecón y Puerto Salvador Allende en Google Maps">Cómo llegar en Google Maps</a></figcaption>
+      </figure>
+      <figure>
+        <div class="photo"><img src="fotos/antigua-catedral.jpg" alt="Vista posterior de la Antigua Catedral de Managua, con sus cúpulas y ventanas sin vidrios" width="800" height="1067" loading="lazy"></div>
+        <figcaption>Antigua Catedral de Managua<small>Catedral de 1929 dañada por el terremoto · se ve desde afuera</small><small class="credit">Foto: @aqui.nicaragua en TikTok</small><a class="map-link" href="https://www.google.com/maps/dir/?api=1&destination=Antigua+Catedral+de+Managua+Nicaragua" target="_blank" rel="noopener" aria-label="Cómo llegar a Antigua Catedral de Managua en Google Maps">Cómo llegar en Google Maps</a></figcaption>
+      </figure>
+      <figure>
+        <div class="photo"><img src="fotos/palacio-nacional.jpg" alt="Fachada del Palacio Nacional con columnas y techo de teja roja" width="800" height="1067" loading="lazy"></div>
+        <figcaption>Palacio Nacional de la Cultura<small>Museo Nacional · 9 am a 4 pm · entrada C$ 80 según guía antigua</small><small class="credit">Foto: @istmostudionic en TikTok</small><a class="map-link" href="https://www.google.com/maps/dir/?api=1&destination=Palacio+Nacional+de+la+Cultura+Managua+Nicaragua" target="_blank" rel="noopener" aria-label="Cómo llegar a Palacio Nacional de la Cultura en Google Maps">Cómo llegar en Google Maps</a></figcaption>
+      </figure>
+      <figure>
+        <div class="photo"><img src="fotos/teatro-nacional.jpg" alt="Edificio blanco con columnas del Teatro Nacional Rubén Darío" width="800" height="1067" loading="lazy"></div>
+        <figcaption>Teatro Nacional Rubén Darío<small>Inaugurado en 1969 · visitas de 10 am a 6 pm entre semana</small><small class="credit">Foto: @elarquitectocorista en TikTok</small><a class="map-link" href="https://www.google.com/maps/dir/?api=1&destination=Teatro+Nacional+Rub%C3%A9n+Dar%C3%ADo+Managua+Nicaragua" target="_blank" rel="noopener" aria-label="Cómo llegar a Teatro Nacional Rubén Darío en Google Maps">Cómo llegar en Google Maps</a></figcaption>
+      </figure>
+      <figure>
+        <div class="photo"><img src="fotos/acahualinca.jpg" alt="Huellas humanas fosilizadas en el suelo de barro seco del museo de Acahualinca" width="800" height="1067" loading="lazy"></div>
+        <figcaption>Huellas de Acahualinca<small>Museo arqueológico, a media hora a pie del puerto</small><small class="credit">Foto: @frecuencia505 en TikTok</small><a class="map-link" href="https://www.google.com/maps/dir/?api=1&destination=Huellas+de+Acahualinca+Managua+Nicaragua" target="_blank" rel="noopener" aria-label="Cómo llegar a Huellas de Acahualinca en Google Maps">Cómo llegar en Google Maps</a></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec" id="dormir">
+    <div class="sec-head"><h2>Dónde dormir</h2><span class="tag">Precios de referencia</span></div>
+    <p class="hint">Precio desde, por noche, según Kayak en octubre de 2026. Cada precio indica su fecha y cambia según el día. La distancia es a la laguna de Tiscapa, cuando la fuente la da.</p>
+    <ul class="rows">
+      <li class="row">
+        <div class="row-top">
+          <div><h3>Art Hotel Managua</h3><p class="meta">A 2,3 km de la laguna de Tiscapa</p></div>
+          <div class="price">US$ 30<small>desde · 17–18 oct</small></div>
+        </div>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=Art+Hotel+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+      <li class="row">
+        <div class="row-top">
+          <div><h3>Hotel Mozonte</h3><p class="meta">A 1,1 km de la laguna de Tiscapa · unos 20 min en carro del centro</p></div>
+          <div class="price">US$ 40<small>desde · 17–18 oct</small></div>
+        </div>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=Hotel+Mozonte+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+      <li class="row">
+        <div class="row-top">
+          <div><h3>La Posada del Arcángel</h3><p class="meta">A 0,9 km de la laguna de Tiscapa</p></div>
+          <div class="price">US$ 49<small>desde · 17–18 oct</small></div>
+        </div>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=La+Posada+del+Arcangel+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+      <li class="row">
+        <div class="row-top">
+          <div><h3>Los Robles Charming Colonial Boutique Hotel</h3><p class="meta">Zona Los Robles · a 2,5 km de la laguna de Tiscapa</p></div>
+          <div class="price">US$ 95<small>desde · 17–18 oct</small></div>
+        </div>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=Los+Robles+Boutique+Hotel+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+      <li class="row">
+        <div class="row-top">
+          <div><h3>Crowne Plaza Managua</h3><p class="meta">A 0,5 km de la laguna de Tiscapa</p></div>
+          <div class="price">US$ 129<small>desde · 17–18 oct</small></div>
+        </div>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=Crowne+Plaza+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+      <li class="row">
+        <div class="row-top">
+          <div><h3>Hilton Princess Managua</h3><p class="meta">A 1,9 km de la laguna de Tiscapa</p></div>
+          <div class="price">US$ 181<small>desde · 24–25 oct</small></div>
+        </div>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=Hilton+Princess+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+      <li class="row">
+        <div class="row-top">
+          <div><h3>Best Western Las Mercedes Airport</h3><p class="meta">Cerca del aeropuerto, para llegadas y salidas de vuelo</p></div>
+          <div class="price">US$ 105<small>desde · 24–25 oct</small></div>
+        </div>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=Best+Western+Las+Mercedes+Airport+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="sec" id="comer">
+    <div class="sec-head"><h2>Dónde comer</h2><span class="tag">Lugares reales</span></div>
+    <p class="hint">Casi ninguna fuente publica precios de platos. Como referencia general, Kayak da unos C$ 209 por una comida rápida y unos C$ 370 por un almuerzo de restaurante con dos platos y postre (octubre de 2026). Los dos precios con "según una reseña" son de clientes. No pude confirmar que todos sigan abiertos: revisa en Google Maps.</p>
+    <ul class="rows">
+      <li class="row">
+        <h3>Cocina de Doña Haydée</h3>
+        <p class="meta">Carretera a Masaya, km 4½ · comida nicaragüense</p>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=Cocina+de+Dona+Haydee+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+      <li class="row">
+        <div class="row-top">
+          <div><h3>Quesillos El Pipe</h3><p class="meta">Plaza Veracruz, 5 Carretera a Masaya · quesillos</p></div>
+          <div class="price">US$ 8<small>quesillo y cacao, según una reseña</small></div>
+        </div>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=Quesillos+El+Pipe+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+      <li class="row">
+        <div class="row-top">
+          <div><h3>Casa Santa Lucía</h3><p class="meta">Detrás de Sinsa Home Center, 13 Av. Sureste · buffet</p></div>
+          <div class="price">US$ 10<small>un plato, según una reseña</small></div>
+        </div>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=Casa+Santa+Lucia+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+      <li class="row">
+        <h3>El Tiscapa Los Ranchos</h3>
+        <p class="meta">Paseo Tiscapa · carnes y churrasco nicaragüense</p>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=El+Tiscapa+Los+Ranchos+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+      <li class="row">
+        <h3>Pane e Vino</h3>
+        <p class="meta">Avenida Principal Los Robles · comida italiana</p>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=Pane+e+Vino+Los+Robles+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+      <li class="row">
+        <h3>Malecón y Puerto Salvador Allende</h3>
+        <p class="meta">Puestos de comida y restaurantes frente al lago Xolotlán</p>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=Malecon+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+      <li class="row">
+        <h3>Zona Hippos</h3>
+        <p class="meta">Zona de restaurantes, bares y música en vivo</p>
+        <a class="row-link" href="https://www.google.com/maps/search/?api=1&query=Zona+Hippos+Managua+Nicaragua" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="sec" id="bus">
+    <div class="sec-head"><h2>Cómo llegar en bus</h2><span class="tag">Datos de referencia</span></div>
+    <p class="hint">Managua no tiene una terminal central: cada destino sale de una terminal distinta. Las tarifas son de 2019 y subieron después. Por ejemplo, la ruta UCA–León pasó de C$ 71 a C$ 78 en 2022. Confirma el precio al abordar.</p>
+    <ul class="rows">
+
+      <li class="row">
+        <h3>Terminal UCA</h3>
+        <p class="meta">Microbuses hacia Granada, Masaya, Carazo y León</p>
+        <div class="notice">
+          <span class="tag">Aviso</span>
+          <span>Desde el 21 de julio de 2026 esta terminal se trasladó unos 300 m al sur de los semáforos Rigoberto López Pérez, a cerca de 1 km del sitio anterior, por las obras de la Pista Héroes y Mártires de la Insurrección (La Prensa). Pregunta en la parada antes de salir.</span>
+        </div>
+        <ul class="dests">
+          <li><div><div class="d-name">Granada</div><div class="d-meta">1 h · cada 15 min · 5 am a 9 pm</div></div><div class="d-price">C$ 20<small>tarifa 2019</small></div></li>
+          <li><div><div class="d-name">Masaya</div><div class="d-meta">30 min · cada 20 min · 6 am a 9 pm</div></div><div class="d-price">C$ 12<small>tarifa 2019</small></div></li>
+          <li><div><div class="d-name">León</div><div class="d-meta">1 h 30 min · sale cuando se llena · 4 am a 8 pm</div></div><div class="d-price">C$ 78<small>tarifa 2022</small></div></li>
+          <li><div><div class="d-name">Jinotepe y Diriamba (Carazo)</div><div class="d-meta">45 min a 1 h 15 min · cada 25 a 30 min · 4 am a 9:30 pm</div></div><div class="d-price">C$ 23<small>tarifa 2019</small></div></li>
+        </ul>
+      </li>
+
+      <li class="row">
+        <h3>Mercado Roberto Huembes</h3>
+        <p class="meta">Sureste de la ciudad · buses hacia el sur del país</p>
+        <ul class="dests">
+          <li><div><div class="d-name">Masaya</div><div class="d-meta">30 min · cada 18 min · 4:50 am a 5:30 pm</div></div><div class="d-price">C$ 9<small>tarifa 2019</small></div></li>
+          <li><div><div class="d-name">Rivas</div><div class="d-meta">1 h 45 min · cada 30 min · 6 am a 7 pm</div></div><div class="d-price">C$ 40<small>tarifa 2019</small></div></li>
+          <li><div><div class="d-name">San Jorge (puerto a Ometepe)</div><div class="d-meta">1 h 55 min · cada 30 min · 6 am a 9 pm</div></div><div class="d-price">C$ 40<small>tarifa 2019</small></div></li>
+          <li><div><div class="d-name">San Juan del Sur</div><div class="d-meta">2 h 30 min · cada 30 min · 10 am a 4 pm</div></div><div class="d-price">C$ 55<small>tarifa 2019</small></div></li>
+          <li><div><div class="d-name">Masatepe</div><div class="d-meta">1 h 10 min · cada 20 min · 6 am a 7 pm</div></div><div class="d-price">C$ 14<small>tarifa 2019</small></div></li>
+        </ul>
+      </li>
+
+      <li class="row">
+        <h3>Mercado Israel Lewites (El Boer)</h3>
+        <p class="meta">Oeste de la ciudad · buses hacia el occidente</p>
+        <ul class="dests">
+          <li><div><div class="d-name">León · expreso o microbús</div><div class="d-meta">1 h 30 min · expreso cada 30 min, microbús cuando se llena · 4:30 am a 5:30 pm</div></div><div class="d-price">C$ 71 a 78<small>tarifa 2022</small></div></li>
+          <li><div><div class="d-name">Chinandega</div><div class="d-meta">1 h 40 min · cada 20 min · 4:45 am a 7 pm</div></div><div class="d-price">C$ 40<small>tarifa 2019</small></div></li>
+          <li><div><div class="d-name">Pochomil (playa)</div><div class="d-meta">1 h 40 min · cada hora · 6 am a 7:40 pm</div></div><div class="d-price">C$ 16<small>tarifa 2019</small></div></li>
+        </ul>
+      </li>
+
+      <li class="row">
+        <h3>Mercado Mayoreo</h3>
+        <p class="meta">Este de la ciudad · buses hacia el norte</p>
+        <ul class="dests">
+          <li><div><div class="d-name">Estelí</div><div class="d-meta">2 h · cada hora · 6 am a 5 pm</div></div><div class="d-price">C$ 60<small>tarifa 2019</small></div></li>
+          <li><div><div class="d-name">Matagalpa</div><div class="d-meta">2 h · cada hora · 6 am a 6 pm</div></div><div class="d-price">C$ 60<small>tarifa 2019</small></div></li>
+        </ul>
+        <p class="asof">También salen buses a Jinotega y San Carlos, sin precio publicado.</p>
+      </li>
+
+      <li class="row">
+        <h3>Moverse dentro de Managua</h3>
+        <ul class="dests">
+          <li><div><div class="d-name">Bus urbano</div><div class="d-meta">Las paradas casi no están señalizadas: pregunta a la gente del lugar</div></div><div class="d-price">C$ 5<small>trayecto corto</small></div></li>
+          <li><div><div class="d-name">Ruta 110</div><div class="d-meta">Mercado Roberto Huembes a Metrocentro</div></div><div class="d-price">C$ 5</div></li>
+          <li><div><div class="d-name">Taxi</div><div class="d-meta">No usan taxímetro: acuerda el precio antes de subir y pregunta si es por persona o por grupo. De noche las guías advierten que cuesta más y que no conviene compartirlo con desconocidos.</div></div></li>
+          <li><div><div class="d-name">Desde el aeropuerto</div><div class="d-meta">No hay bus directo al centro. Los taxis cooperativos cobran tarifa fija por zona y se pagan en el mostrador de llegadas. Pregunta el precio ahí, porque las guías dan cifras muy distintas.</div></div></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section class="sec" id="carro">
+    <div class="sec-head"><h2>Cómo llegar en carro</h2></div>
+    <div class="row">
+      <h3>A Managua</h3>
+      <dl class="route-facts">
+        <div><dt>Desde León</dt><dd>unos 90 km · 1 h 30 min</dd></div>
+        <div><dt>Desde Granada</dt><dd>unos 45 km · cerca de 1 h</dd></div>
+        <div><dt>Aeropuerto al centro</dt><dd>11 km · 20 a 30 min</dd></div>
+        <div><dt>Alquiler de carro</dt><dd>desde C$ 399 al día</dd></div>
+      </dl>
+      <p class="asof">Alquiler: Hertz, Alamo, Enterprise y Budget, según Kayak en octubre de 2026. La distancia desde Granada es aproximada.</p>
+      <p class="dishes"><b>Direcciones:</b> en Managua muchas calles no tienen nombre y las direcciones se dan por referencias, como "Carretera a Masaya, km 7". Busca cada lugar por su nombre en Google Maps y deja que te guíe.</p>
+      <div class="btn-row">
+        <a class="btn btn-sun" href="https://www.google.com/maps/search/?api=1&query=Managua+Nicaragua" target="_blank" rel="noopener">Ver Managua en Google Maps</a>
+        <a class="btn btn-line" href="https://www.google.com/maps/dir/?api=1&destination=Managua+Nicaragua&travelmode=driving" target="_blank" rel="noopener">Trazar ruta hasta aquí</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="redes">
+    <div class="sec-head"><h2>Síguenos</h2></div>
+    <p class="hint">Videos y fotos de cada departamento en nuestras redes.</p>
+    <div class="socials">
+      <a class="social" href="https://www.tiktok.com/" target="_blank" rel="noopener"><b>TikTok</b><span>@tu_usuario</span></a>
+      <a class="social" href="https://www.facebook.com/" target="_blank" rel="noopener"><b>Facebook</b><span>/tu_pagina</span></a>
+      <a class="social" href="https://www.youtube.com/" target="_blank" rel="noopener"><b>YouTube</b><span>@tu_canal</span></a>
+    </div>
+  </section>
+
+  <section class="sec" id="compartir">
+    <div class="sec-head"><h2>Comparte la página</h2></div>
+    <p class="hint">Envía el enlace a quien vaya a viajar.</p>
+    <div class="share-box">
+      <input class="share-input" id="share-url" type="text" readonly value="https://claude.ai/artifact/9xUs1WMV8haU1TMjFGQvY7" aria-label="Enlace de la página">
+      <button class="btn btn-sun" id="share-copy" type="button">Copiar enlace</button>
+    </div>
+    <p class="share-status" id="share-status" role="status"></p>
+    <div class="btn-row">
+      <a class="btn btn-line" href="https://wa.me/?text=Descubre%20Nicaragua%3A%20Managua%20https%3A%2F%2Fclaude.ai%2Fartifact%2F9xUs1WMV8haU1TMjFGQvY7" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+      <a class="btn btn-line" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fclaude.ai%2Fartifact%2F9xUs1WMV8haU1TMjFGQvY7" target="_blank" rel="noopener">Compartir en Facebook</a>
+    </div>
+  </section>
+
+  <section class="sec" id="otros">
+    <div class="sec-head"><h2>Otros departamentos</h2></div>
+    <ul class="others">
+      <li>Masaya · próximamente</li>
+      <li>Rivas · próximamente</li>
+      <li>Chinandega · próximamente</li>
+      <li>Estelí · próximamente</li>
+      <li>Matagalpa · próximamente</li>
+      <li>Jinotega · próximamente</li>
+    </ul>
+  </section>
+
+  <details class="sources">
+    <summary>Fuentes de los datos de Managua</summary>
+    <ul>
+      <li><a href="https://www.es.kayak.com/Hoteles-en-Managua.4479.hotel.ksp" target="_blank" rel="noopener">Kayak: hoteles en Managua</a> (octubre 2026)</li>
+      <li><a href="https://www.es.kayak.com/Hoteles-en-Managua_Tiscapa-Lagoon.L56166.4479.hotel.ksp" target="_blank" rel="noopener">Kayak: hoteles cerca de la laguna de Tiscapa</a> (octubre 2026)</li>
+      <li><a href="https://www.kayak.es/Managua.4479.guide" target="_blank" rel="noopener">Kayak: guía de Managua</a> (octubre 2026)</li>
+      <li><a href="https://www.frommers.com/destinations/managua/things-to-do/" target="_blank" rel="noopener">Frommer's: qué hacer en Managua</a> (sin fecha)</li>
+      <li><a href="https://www.frommers.com/destinations/managua/planning-a-trip/getting-there" target="_blank" rel="noopener">Frommer's: cómo llegar a Managua</a> (sin fecha)</li>
+      <li><a href="https://www.theculturetrip.com/north-america/nicaragua/articles/7-unique-experiences-to-have-in-managua" target="_blank" rel="noopener">Culture Trip: experiencias en Managua</a></li>
+      <li><a href="https://wanderlog.com/list/geoCategory/205339/" target="_blank" rel="noopener">Wanderlog: restaurantes de Managua</a></li>
+      <li><a href="https://nicaragua-travel-guide.com/site/terminal-de-buses-managua-horario-y-precio/" target="_blank" rel="noopener">Nicaragua Travel Guide: terminales de Managua</a> (tarifas de 2019)</li>
+      <li><a href="https://www.laprensani.com/2026/07/16/nacionales/3739653-traslado-terminal-buses-uca-managua" target="_blank" rel="noopener">La Prensa: traslado de la terminal UCA</a> (16 de julio de 2026)</li>
+      <li><a href="https://www.visitleon.info/como-llegar-a-leon-desde-managua-en-autobus.html" target="_blank" rel="noopener">Visit León: de Managua a León en autobús</a> (tarifas hasta diciembre de 2022)</li>
+      <li><a href="https://confidencial.digital/nacion/incrementan-tarifas-en-buses-interurbanos-e-intermunicipales/" target="_blank" rel="noopener">Confidencial: aumento de tarifas en buses</a> (abril de 2022)</li>
+      <li><a href="https://www.airporttransferportal.com/ja/airport-guides/mga" target="_blank" rel="noopener">Airport Transfer Portal: aeropuerto de Managua</a> (julio de 2026)</li>
+    </ul>
+  </details>
+
+  <footer>
+    Actualizado: octubre 2026. Los precios de hoteles son de Kayak para las fechas indicadas. Los datos de buses vienen de guías y noticias de 2019 a 2026, y pueden haber cambiado.
+  </footer>
+</main>
+
+<script>
+(function () {
+  var fab = document.getElementById('menu-open');
+  var sheet = document.getElementById('menu');
+  var closeBtn = document.getElementById('menu-close');
+
+  function openMenu() {
+    sheet.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    closeBtn.focus();
+  }
+  function closeMenu(restore) {
+    sheet.hidden = true;
+    fab.setAttribute('aria-expanded', 'false');
+    if (restore) fab.focus();
+  }
+  fab.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', function () { closeMenu(true); });
+  sheet.addEventListener('click', function (e) { if (e.target === sheet) closeMenu(true); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !sheet.hidden) closeMenu(true);
+  });
+  [].forEach.call(document.querySelectorAll('.menu-list a'), function (a) {
+    a.addEventListener('click', function () { closeMenu(false); });
+  });
+
+  var input = document.getElementById('share-url');
+  var copyBtn = document.getElementById('share-copy');
+  var status = document.getElementById('share-status');
+  function selectFallback() {
+    input.focus();
+    input.select();
+    status.textContent = 'Mantén presionado el enlace y elige Copiar.';
+  }
+  copyBtn.addEventListener('click', function () {
+    try {
+      navigator.clipboard.writeText(input.value).then(function () {
+        status.textContent = 'Enlace copiado.';
+      }, selectFallback);
+    } catch (e) {
+      selectFallback();
+    }
+  });
+})();
+</script>
+
+</body></html>
